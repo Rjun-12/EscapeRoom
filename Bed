@@ -1,0 +1,75 @@
+/*
+Bed Class
+Attributes
+int sleepCount(): indicates how many times you slept
+Method
+void examine(): This will describe the bed
+void look(): The player is looking around the room. It will say they see a bed.
+void sleep(boolean barsCut, boolean punch): You sleep on the bed and nothing has changed. If you have broken the cell bars before you had slept then you were caught by the guards and the game will end. If your wrist is broken you will complain about the pain you have on your hand and say you did not have good sleep. If you slept more than twice you missed your chance to escape because the elevator stopped working and now you have no way to escape. The game ends.
+
+ */
+public class MojumdarBed {
+
+    //Instance Variables
+    private int sleepCount;
+
+    //Constructor
+    public MojumdarBed() {
+        sleepCount = 0;
+    }
+
+    //Parameratized Constructor
+    public MojumdarBed(int s) {
+        sleepCount = s;
+    }
+
+    //Display method
+    public String toString() {
+        String output = "sleepCount = " + sleepCount;
+        return output;
+    }
+
+    //Getters
+    public int getSleepCount() {
+        return sleepCount;
+    }
+
+    //Setters
+    private void setSleepCount(int s) {
+        sleepCount = s;
+    }
+
+    //Interesting Methods
+    public void look() {
+        System.out.println("There is a bed");
+    }
+
+    public void examine() {
+        String output;
+        if (sleepCount == 1) {
+            output = "The bed looks comfy but I don't know if you should waste time sleeping";
+        } else {
+            output = "The bed looks comfy";
+        }
+        System.out.println(output);
+    }
+
+    //Sleep on the bed
+    public void sleep(boolean barsCut, int punchCount) {
+        String output;
+        if (barsCut) {
+            output = "The security caught your shenanigans, GAME OVER";
+            sleepCount++;
+        } else if (sleepCount == 1) {
+            output = "You slept for too long. You missed your only chance to escape, GAME OVER";
+            sleepCount++;
+        } else if (punchCount == 1) {
+            output = "You scream in agonizing pain from your broken wrist. That was not some good sleep...";
+            sleepCount++;
+        } else {
+            output = "You had some good sleep but I don't recommend sleeping for too long";
+            sleepCount++;
+        }
+        System.out.println(output);
+    }
+}

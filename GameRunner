@@ -1,0 +1,277 @@
+import java.util.Scanner;
+
+public class MojumdarEscapeRoom {
+
+    //All player variables
+    private boolean playerIsDirty;
+    private boolean playerHasMagazine;
+    private int cleanCount;
+    private int showerCount;
+    private boolean playerHasFile;
+    private boolean windowOpen;
+    private boolean playerHasKey;
+    private int sleepCount;
+    private int usageCount;
+    private boolean unlocked;
+    private int punchCount;
+    private boolean barsCut;
+    private boolean gameOver;
+    private String combination;
+
+    //Classes
+    private MojumdarToilet t1;
+    private MojumdarShower s1;
+    private MojumdarWindow w1;
+    private MojumdarBed b1;
+    private MojumdarElevator e1;
+    private MojumdarCellBars cb1;
+    private MojumdarDoor d1;
+    private CombinationLock c1;
+
+    //Default Constructor
+    public MojumdarEscapeRoom() {
+        playerIsDirty = false;
+        playerHasMagazine = false;
+        cleanCount = 0;
+        showerCount = 0;
+        playerHasFile = false;
+        windowOpen = false;
+        playerHasKey = false;
+        sleepCount = 0;
+        usageCount = 0;
+        unlocked = false;
+        punchCount = 0;
+        barsCut = false;
+        gameOver = false;
+        combination = "7307";
+        t1 = new MojumdarToilet();
+        s1 = new MojumdarShower();
+        w1 = new MojumdarWindow();
+        b1 = new MojumdarBed();
+        e1 = new MojumdarElevator();
+        cb1 = new MojumdarCellBars();
+        c1 = new CombinationLock("7307");
+        d1 = new MojumdarDoor();
+    }
+
+    //Look method
+    public void lookAround() {
+        System.out.println("In your prison, there is a toilet, shower, bed. Outside the cell bars, there is an elevator and a window");
+        t1.look();
+        s1.look();
+        w1.look();
+        b1.look();
+        e1.look();
+        cb1.look();
+    }
+
+    public void play() {
+        String nextLine;
+        String verb = "", noun;
+        int spacePos;
+        Scanner scan = new Scanner(System.in);
+        //Backstory
+        System.out.println("You are a homeless man living on the road, you show some appreciation to some guy who hands you five dollars and some change."
+                + "\nNext thing you realize that you are being framed for robbing five dollars and twenty four cents from the U.S government and now you are facing life imprisonment in the prison of Alcatraz."
+                + "Welcome to prison..." + "\nYou are in an isolated cell"
+                + "\nYou don’t have a good lawyer or any money so you think of a plan to escape the heavily secured prison. ");
+        while (!gameOver) {
+            System.out.println("=============================================================");
+            System.out.println("Please enter a command.");
+            //Wait for the user to enter a command
+            nextLine = scan.nextLine();
+            spacePos = nextLine.indexOf(" ");
+            if (spacePos == -1) {
+                //This means no space / One Word
+                verb = nextLine;
+                noun = "";
+            } else {
+                //This means it is two worded
+                verb = nextLine.substring(0, spacePos);
+                noun = nextLine.substring(spacePos + 1);
+            }
+            //Everything above is standard            
+
+            if (verb.equalsIgnoreCase("quit")) {
+                gameOver = true;
+            } else if (verb.equalsIgnoreCase("help")) {
+                System.out.println("Commands: examine (something), look, use, grab, clean, cut, punch, open, close, sleep, unlock");
+            } else if (verb.equalsIgnoreCase("look")) {
+                lookAround();
+            } else if (verb.equalsIgnoreCase("examine")) {
+                if (usageCount == 0 || usageCount == 2) {
+                    if (noun.equalsIgnoreCase("cellbars")) {
+                        cb1.examine();
+                    } else if (noun.equalsIgnoreCase("elevator")) {
+                        e1.examine();
+                    } else if (noun.equalsIgnoreCase("window")) {
+                        w1.examine();
+                    } else if (noun.equalsIgnoreCase("bed")) {
+                        b1.examine();
+                    } else if (noun.equalsIgnoreCase("shower")) {
+                        s1.examine();
+                    } else if (noun.equalsIgnoreCase("toilet")) {
+                        t1.examine();
+                    } else {
+                        System.out.println("We cannot do that");
+                    }
+                } else {
+                    System.out.println("What?");
+                }
+            } else if (verb.equalsIgnoreCase("use")) {
+                if (noun.equalsIgnoreCase("elevator")) {
+                    c1.unlock();
+                    e1.use(c1);
+                    if (c1.isUnlocked()) {
+                        usageCount++;
+                    }
+                } else if (barsCut && usageCount == 0 || usageCount == 2) {
+                    if (noun.equalsIgnoreCase("shower")) {
+                        s1.use(playerIsDirty);
+                        if (playerIsDirty) {
+                            showerCount++;
+                        }
+                        playerIsDirty = false;
+                    } else {
+                        System.out.println("We cannot do that");
+                    }
+                } else {
+                    System.out.println("What?");
+                }
+            } else if (verb.equalsIgnoreCase("clean")) {
+                if (usageCount == 0 || usageCount == 2) {
+                    if (noun.equalsIgnoreCase("toilet")) {
+                        t1.clean(playerIsDirty);
+                        if (!playerIsDirty) {
+                            cleanCount++;
+                        }
+                        playerIsDirty = true;
+                    } else {
+                        System.out.println("We cannot do that");
+                    }
+                } else {
+                    System.out.println("What?");
+                }
+            } else if (verb.equalsIgnoreCase("grab")) {
+                if (usageCount == 0 || usageCount == 2) {
+                    if (noun.equalsIgnoreCase("file")) {
+                        s1.grabFile();
+                        playerHasFile = true;
+                    } else if (noun.equalsIgnoreCase("magazine")) {
+                        t1.grabMagazine();
+                        playerHasMagazine = true;
+                    } else if (noun.equalsIgnoreCase("key")) {
+                        if (barsCut && windowOpen) {
+                            w1.grabKey();
+                            playerHasKey = true;
+                        } else {
+                            System.out.println("What?");
+                        }
+                    } else {
+                        System.out.println("We cannot do that");
+                    }
+                } else {
+                    System.out.println("What?");
+                }
+            } else if (verb.equalsIgnoreCase("cut")) {
+                if (usageCount == 0 || usageCount == 2) {
+                    if (noun.equalsIgnoreCase("cellBars")) {
+                        if (playerHasFile) {
+                            cb1.cut(playerHasFile);
+                            barsCut = true;
+                        } else {
+                            System.out.println("You need something to cut it with");
+                        }
+                    } else {
+                        System.out.println("We cannot do that");
+                    }
+                } else {
+                    System.out.println("What?");
+                }
+            } else if (verb.equalsIgnoreCase("punch")) {
+                if (usageCount == 0 || usageCount == 2) {
+                    if (noun.equalsIgnoreCase("cellBars")) {
+                        cb1.punch();
+                        punchCount++;
+                    } else {
+                        System.out.println("We cannot do that");
+                    }
+                } else {
+                    System.out.println("What?");
+                }
+            } else if (verb.equalsIgnoreCase("close")) {
+                if (barsCut && usageCount == 0 || usageCount == 2) {
+                    if (noun.equalsIgnoreCase("window")) {
+                        w1.close();
+                        windowOpen = false;
+                    } else {
+                        System.out.println("We cannot do that");
+                    }
+                } else {
+                    System.out.println("What?");
+                }
+            } else if (verb.equalsIgnoreCase("open")) {
+                if (barsCut && usageCount == 0 || usageCount == 2) {
+                    if (noun.equalsIgnoreCase("window")) {
+                        w1.open();
+                        windowOpen = true;
+                    } else {
+                        System.out.println("We cannot do that");
+                    }
+                } else {
+                    System.out.println("What?");
+                }
+            } else if (verb.equalsIgnoreCase("sleep")) {
+                if (usageCount == 0 || usageCount == 2) {
+                    b1.sleep(barsCut, punchCount);
+                    sleepCount++;
+                }
+            } else if (verb.equalsIgnoreCase("unlock")) {
+                if (usageCount == 1 || usageCount == 3) {
+                    if (noun.equalsIgnoreCase("door")) {
+                        if (playerHasKey) {
+                            d1.unlock(playerHasKey == true);
+                            unlocked = true;
+                        } else {
+                            System.out.println("You need a key");
+                        }
+                    }
+                }
+            } else {
+                System.out.println("Please enter a valid command");
+            }
+            //=========================================================================
+            //Done Checking, Automatic Checking
+            //The dogs will only chew if the user doesn't quit
+            if (!verb.equalsIgnoreCase("quit") && sleepCount == 2) {
+                gameOver = true;
+            }
+            if (!verb.equalsIgnoreCase("quit") && unlocked) {
+                gameOver = true;
+            }
+            if (!verb.equalsIgnoreCase("quit") && usageCount == 3) {
+                gameOver = true;
+            }
+            if (!verb.equalsIgnoreCase("quit") && cleanCount == 3) {
+                gameOver = true;
+            }
+        }
+
+        if (sleepCount == 2) {
+            System.out.println("You slept too much");
+        }
+        if (unlocked) {
+            System.out.println("NICE JOB, YOU ESCAPED");
+        }
+        if (cleanCount == 3) {
+            System.out.println("You cleaned it too many times and fell into the toilet");
+        }
+        if (verb.equalsIgnoreCase("quit")) {
+            System.out.println("You quit");
+        }
+        if (usageCount == 3) {
+            System.out.println("You got caught by the guards");
+        }
+
+    }
+}

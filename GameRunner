@@ -1,0 +1,153 @@
+public class MojumdarProjDriver {
+
+    public static void main(String[] args) {
+        /*
+        //Creating a toilet
+	MojumdarToilet t1 = new MojumdarToilet();
+	System.out.println(t1);
+	
+	//Testing getters
+	boolean b1 = t1.getHasMagazine();
+            System.out.println(b1);
+	int i1 = t1.getCleanCount();
+            System.out.println(i1);
+        
+
+	//Testing methods
+	t1.look();
+	t1.examine();
+        //1rst clean
+	t1.clean();
+            System.out.println(t1);
+        t1.examine();
+        //2nd clean
+        t1.clean();
+        System.out.println(b1);
+            System.out.println(t1); 
+        t1.examine();
+        //Grabbing the magazine
+        t1.grabMagazine();
+            System.out.println(b1);
+            //Grabbing magazine again
+        t1.grabMagazine();
+            System.out.println(b1);
+            //3rd clean
+        t1.clean();
+            System.out.println(t1);
+        t1.examine();
+            
+
+        //___________________________________________________________________________
+	//Creating Shower
+        MojumdarShower s1 = new MojumdarShower();
+        System.out.println(s1);
+        
+        //Testing getters
+        int i2 = s1.getShowerCount();
+            System.out.println(i2);
+        boolean b2 = s1.getHasFile();
+            System.out.println(b2);
+        
+        //Testing Methods
+        s1.look();
+	s1.examine();
+        
+        //Try grabbing file
+        s1.grabFile();
+        //1rst time use shower
+        s1.use(false);
+        s1.examine();
+        //Try grabbing file again
+        s1.grabFile();
+        System.out.println(s1);
+        //Try grabbing file again
+        //2nd use
+        s1.use(true);
+        s1.examine();
+        System.out.println(s1);
+        //Grab file
+        System.out.println(s1);
+        //3rd use
+        s1.use(true);
+        s1.examine();
+        //____________________________________________________________________________ 
+        //Creating Window
+        MojumdarWindow w1 = new MojumdarWindow();
+        System.out.println(w1);
+
+        //Testing Getters
+        boolean b3 = w1.getWindowOpen();
+        System.out.println(b3);
+        boolean b4 = w1.getContainsKey();
+        System.out.println(b4);
+                
+        //Testing Methods
+        w1.look();
+        w1.examine();
+        
+        //Trying to grab key
+        w1.grabKey();
+        //Trying to close window but window is already closed
+        w1.close();
+        w1.examine();
+        //Opening window
+        w1.open();
+        //Trying to open window again
+        w1.open();
+        w1.examine();
+        w1.grabKey();
+        w1.grabKey();
+        //Closing window
+        w1.close();
+        w1.examine();
+        
+        //____________________________________________________________________________ 
+        //Creating Elevator
+        MojumdarElevator e1 = new MojumdarElevator();
+        System.out.println(e1);
+
+        //Testing Getters
+        int b5 = e1.getUsageCount();
+        System.out.println(b5);
+        boolean b6 = e1.getUnlocked();
+        System.out.println(b6);
+        
+        //Testing Methods
+        e1.look();
+        e1.examine();
+        
+        //____________________________________________________________________________ 
+        //Creating Bed
+        MojumdarBed be1 = new MojumdarBed();
+        System.out.println(be1);
+        
+        //Testing getters
+        int i7 = be1.getSleepCount();
+        System.out.println(i7);
+
+        
+        //Testing Methods
+        be1.look();
+        be1.examine();
+        //____________________________________________________________________________ 
+        //Creating Bars
+        MojumdarCellBars cb1 = new MojumdarCellBars();
+        System.out.println(cb1);
+
+        //Testing Getters
+        int i8 = cb1.getPunchCount();
+        System.out.println(i8);
+        //Testing Methods
+        cb1.look();
+        cb1.examine();
+         */
+        //____________________________________________________________________________
+        //Combination Lock
+//        CombinationLock c1 = new CombinationLock("7307", "");
+//        c1.unlock();
+//        System.out.println(c1.isUnlocked());
+        MojumdarEscapeRoom me1 = new MojumdarEscapeRoom();
+        me1.play();
+
+    }
+}

@@ -1,0 +1,90 @@
+/*
+Elevator Class
+Attributes
+boolean elevatorUnlocked(): indicates whether the elevator is locked or not
+int usageCount(): tracks how many times the player uses the elevator
+Method
+void examine(): This will describe the elevator and will state what floor number the player is on.
+void look(): The player is looking around the room. It will say they see an elevator.
+void use(combinationLock c): Takes you to the bottom floor to the door. If used more than 3 times, you will be caught by security and the game ends.
+
+ */
+public class MojumdarElevator {
+
+    //Instance Variables
+    private int usageCount;
+    private boolean unlocked;
+
+    //Constructor
+    public MojumdarElevator() {
+        usageCount = 0;
+        unlocked = false;
+    }
+
+    //Parameratized Constructor
+    public MojumdarElevator(int u, boolean f) {
+        usageCount = u;
+        unlocked = f;
+    }
+
+    //Display method
+    public String toString() {
+        String output = "usageCount = " + usageCount;
+        return output;
+    }
+
+    //Getters
+    public int getUsageCount() {
+        return usageCount;
+    }
+
+    public boolean getUnlocked() {
+        return unlocked;
+    }
+
+    //Setters
+    private void setUsageCount(int u) {
+        usageCount = u;
+    }
+
+    private void setUnlocked(boolean u) {
+        unlocked = u;
+    }
+
+    //Interesting methods
+    public void look() {
+        System.out.println("There is a elevator");
+    }
+
+    public void examine() {
+        String output;
+        if (usageCount == 1) {
+            output = "The elevator has taken you to the floor with the escape door";
+        } else {
+            output = "You are on the same level as your jail cell";
+        }
+        System.out.println(output);
+    }
+
+    //Use elevator
+    public void use(CombinationLock c) {
+        if (c.isUnlocked() && usageCount == 0) //Unlocked an hasn't been use
+        {
+            unlocked = true;
+            System.out.println("You used the elevator to go on the floor that has the escape door. YOU HAVE ACCESS TO THE ESCAPE DOOR");
+        } else if (c.isUnlocked() && usageCount == 2) //Unlocked and has been used twice
+        {
+            unlocked = true;
+            System.out.println("You got caught by the guards…");
+        } else if (!c.isUnlocked()) //Locked
+        {
+            unlocked = false;
+            System.out.println("You can't use the elevator without inputting the code");
+        } else //usage count = 1 prior to using it again
+        {
+            unlocked = true;
+            System.out.println("You are back on the jail cell level");
+        }
+        usageCount++;
+    }
+}

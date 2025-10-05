@@ -1,0 +1,39 @@
+/*
+Door Class
+Method
+boolean unlockDoor(): This will win the game if you have the key to open the door
+
+ */
+public class MojumdarDoor {
+
+    //Instance Variables
+    private boolean isLocked;
+
+    //Display method
+    public String toString() {
+        String output = " isLocked = " + isLocked;
+        return output;
+    }
+
+    //Getters
+    public boolean getIsLocked() {
+        return isLocked;
+    }
+
+    //Constructor
+    public MojumdarDoor() {
+        isLocked = true;
+    }
+
+    //Winning method
+    public boolean unlock(boolean hasKey) {
+        if (hasKey) {
+            isLocked = false;
+            System.out.println("The door is unlocked");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+}

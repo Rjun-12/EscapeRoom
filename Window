@@ -1,0 +1,105 @@
+/*
+Window Class
+Attributes
+boolean windowOpen:  indicates whether or not the window is open
+boolean containsKey: indicates whether or not the key is on the windowsill.
+Method
+void examine(): This will say that the window is closed and you cannot see through it. If the window has been opened then it will describe the view outside the window and say there is a key on the windowsill. If the key has already been grabbed it will just describe the view outside the window.
+void look(): The player is looking around the room. It will say they see a closed window if it hasn’t been opened yet.
+void open(): This will open the window to get access to the key and the view outside.
+void close():This will close the window and you will not be able to see the view.
+boolean grabKey(boolean barsCut, boolean windowOpen): If you have broken out the cell bars, you will be able to grab the keys to the door
+
+ */
+public class MojumdarWindow {
+
+    //Instance Variables
+    private boolean windowOpen;
+    private boolean containsKey;
+
+    //Constructor
+    public MojumdarWindow() {
+        windowOpen = false;
+        containsKey = true;
+    }
+
+    //Display method
+    public String toString() {
+        String output = "windowOpen = " + windowOpen + " containsKey = " + containsKey;
+        return output;
+    }
+
+    public boolean getWindowOpen() {
+        return windowOpen;
+    }
+
+    public boolean getContainsKey() {
+        return containsKey;
+    }
+
+    private void setWindowOpen(boolean w) {
+        windowOpen = w;
+    }
+
+    private void setContainsKey(boolean c) {
+        containsKey = c;
+    }
+
+    //Interesting methods
+    public void look() {
+        System.out.println("There is a window");
+    }
+
+    public void examine() {
+        String output;
+        if (windowOpen && !containsKey) {
+            output = "The window is open, There is some nice sunshine";
+        } else if (windowOpen && containsKey) {
+            output = "The window is open and there is some shiny metal thing - looks like a key!";
+        } else {
+            output = "The window is closed, it is dark in here. Might want some sunlight";
+        }
+        System.out.println(output);
+    }
+
+    //Open window
+    public void open() {
+        String output;
+        if (windowOpen) {
+            output = "The window is already open";
+            windowOpen = true;
+        } else {
+            output = "You opened the window, theres something shiny";
+            windowOpen = true;
+        }
+        System.out.println(output);
+    }
+
+    //Close window
+    public void close() {
+        String output;
+        if (windowOpen) {
+            output = "You closed the window, why?";
+            windowOpen = false;
+        } else {
+            output = "The window is already closed";
+            windowOpen = false;
+        }
+        System.out.println(output);
+    }
+
+    //Grab key
+    public boolean grabKey() {
+        if (containsKey && windowOpen == true) {
+            System.out.println("You grabbed the key");
+            containsKey = false;
+            return true;
+        } else if (containsKey && !windowOpen) {
+            System.out.println("The window is closed...");
+            return false;
+        } else {
+            System.out.println("You grabbed the key already...");
+            return true;
+        }
+    }
+}

@@ -1,0 +1,95 @@
+/*
+Cell Bars class
+Attributes
+int punchCount: tracks how many times you punched the bars
+boolean barsCut: indicates whether the cell bars have been cut or not
+Method
+void examine(): This will describe the cell bars and will say you might be able to cut through it with something.
+void look():The player is looking around the room. It will say they see cell bars.
+boolean cut: You cut through the steel bars with the file to get access to the elevator. If your hand is broken, you will still manage to cut the bars but you will fall asleep from how long it took.
+boolean punch(): Your right hand will have a broken wrist the rest of the game and you will be in excruciating pain.
+
+ */
+public class MojumdarCellBars {
+//Instance Variables
+
+    private int punchCount;
+    boolean barsCut;
+
+    //Constructor
+    public MojumdarCellBars() {
+        punchCount = 0;
+        barsCut = false;
+    }
+
+    //Parameratized Constructor
+    public MojumdarCellBars(int p, boolean b) {
+        punchCount = p;
+        barsCut = b;
+    }
+
+    //Display method
+    public String toString() {
+        String output = " punchCount = " + punchCount + " barsCut " + barsCut;
+        return output;
+    }
+
+    //Getters
+    public int getPunchCount() {
+        return punchCount;
+    }
+
+    public boolean getBarsCut() {
+        return barsCut;
+    }
+
+    //Setters
+    private void setPunchCount(int p) {
+        punchCount = p;
+    }
+
+    private void setBarsCut(boolean b) {
+        barsCut = b;
+    }
+
+    public void look() {
+        System.out.println("There are cellbars");
+    }
+
+    public void examine() {
+        if (barsCut) {
+            System.out.println("Beyond the cut cell bars is an elevator and a window");
+        } else {
+            System.out.println("I need to get through these cellbars");
+        }
+    }
+
+    //Cut the cell bars
+    public boolean cut(boolean hasFile) {
+        if (hasFile && punchCount == 1) {
+            System.out.println("You cut through the bars but you fell asleep because you took so long to cut them using one hand");
+            barsCut = true;
+            return true;
+        } else if (hasFile) {
+            System.out.println("You have cut through the steel cellbars");
+            barsCut = true;
+            return true;
+        } else {
+            System.out.println("You cannot cut through the cellbars");
+            return false;
+        }
+    }
+
+    //Punch the cell bar
+    public boolean punch() {
+        if (punchCount == 1) {
+            System.out.println("I don’t think you should punch it again");
+            return true;
+        } else {
+            punchCount++;
+            System.out.println("YOU BROKE YOUR WRIST");
+            return true;
+        }
+    }
+
+}

@@ -1,0 +1,110 @@
+/*
+Toilet Class
+Attributes
+boolean hasMagazine: indicates whether or not the magazine is in the toilet
+int cleanCount: tracks the times you cleaned the toilet
+Method
+void examine(): This will describe the state of the toilet.
+void look(): The player is looking around the room. It will say they see a toilet.
+void clean(boolean healthy): This will cause cleanCount to increase by one. If cleaned more than 3 times, you will fall in the toilet. (THIS ENDS THE GAME) If your wrist is broken, you will scream in agonizing pain.
+boolean grabMagazine(): The player will take the magazine if the toilet has been cleaned twice. IF THE COUNTER IS < 2, SOUT WHAT MAGAZINE? The magazine will reveal the code. If your wrist is broken, you will have a 20% chance of dropping the magazine everytime you pick it up.
+
+ */
+public class MojumdarToilet {
+
+    //Instance Variables
+    private boolean hasMagazine;
+    private int cleanCount;
+
+    //Default Constructor
+    public MojumdarToilet() {
+        hasMagazine = true;
+        cleanCount = 0;
+    }
+
+    //Parameterized Constructor
+    public MojumdarToilet(boolean h, int c) {
+        hasMagazine = h;
+        cleanCount = c;
+    }
+
+    //Display method
+    public String toString() {
+        String output = "hasMagazine = " + hasMagazine + " cleanCount = " + cleanCount;
+        return output;
+    }
+
+    //Getters
+    public boolean getHasMagazine() {
+        return hasMagazine;
+    }
+
+    public int getCleanCount() {
+        return cleanCount;
+    }
+
+    //Setters
+    private void setHasMagazine(boolean h) {
+        hasMagazine = h;
+    }
+
+    private void setCleanCount(boolean c) {
+        hasMagazine = c;
+    }
+
+    //Interesting Methods
+    public void look() {
+        System.out.println("There is a toilet");
+    }
+
+    public void examine() {
+        String output;
+        if (cleanCount == 0) {
+            output = "The toilet is clogged with something.";
+        } else if (cleanCount == 1) {
+            output = "The toilet still seems to be clogged, might need to clean it again.";
+        } else {
+            output = "The toilet is unclogged and there is a magazine.";
+        }
+        System.out.println(output);
+    }
+
+    //Clean toilet
+    public void clean(boolean isDirty) {
+        String output;
+        if (cleanCount == 0 && !isDirty) {
+            output = "You clean the toilet, but it's still clogged. You are dirty";
+            cleanCount++;
+        } else if (cleanCount == 1 && !isDirty) {
+            output = "You are dirty. You finally unclog the toilet!!!!, What was clogging it??";
+            cleanCount++;
+        } else if (isDirty) {
+            output = "Try cleaning yourself up first";
+        } else {
+            output = "You slipped and fell in the toilet... I don't think you should have cleaned it again.";
+            cleanCount++;
+        }
+
+        System.out.println(output);
+
+    }
+
+    //Grab the magazine
+    public boolean grabMagazine() {
+        String output;
+        if (cleanCount <= 1) {
+            output = "What magazine?";
+            System.out.println(output);
+            return true;
+        } else if (cleanCount > 1 && hasMagazine) {
+            output = "You grab the magazine!, It has some numbers on it- “7307”";
+            hasMagazine = false;
+            System.out.println(output);
+            return false;
+        } else {
+            output = "You already grabbed the magazine...";
+            System.out.println(output);
+            return false;
+        }
+    }
+}

@@ -1,0 +1,60 @@
+import java.util.Scanner;
+
+public class CombinationLock {
+
+    private String combination, hint;
+    private boolean openFlag;
+
+    public CombinationLock(String argCombination) {
+        // Set the combination.
+        combination = argCombination;
+
+        // Set the hint
+        hint = "";
+
+        // This starts out being locked.
+        openFlag = false;
+    }
+
+    public CombinationLock(String argCombination, String argHint) {
+        // Set the combination.
+        combination = argCombination;
+
+        // Set the hint
+        hint = argHint;
+
+        // This starts out being locked.
+        openFlag = false;
+    } 
+    public boolean unlock() {
+        // If the lock is already open, nothing should be done.
+        if (openFlag) {
+            return openFlag;
+        }
+
+        // Prompt the player for the combination
+        Scanner in = new Scanner(System.in);
+        System.out.print("Please enter the combination " + hint + ":  ");
+        String enteredCombination = in.nextLine();
+
+        // Check if the combination is correct
+        if (enteredCombination.equals(combination)) {
+            // The combination is correct.
+            openFlag = true;
+        }
+
+        // Return the status of the lock.
+        return openFlag;
+    } // end unlock
+
+    // This method will return the status of the lock.
+    // TRUE if unlocked, FALSE if locked.
+    public boolean isUnlocked() {
+        return openFlag;
+    } // end isUnlocked
+    //accessor method for the hint
+
+    public String getHint() {
+        return hint;
+    }
+}

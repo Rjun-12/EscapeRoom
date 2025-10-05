@@ -1,0 +1,105 @@
+/*
+Shower Class
+Attributes
+int usageCount: tracks the number of times you showered
+boolean fileRevealed: indicates whether the soap is revealing the file or not.
+Method
+void examine(): This will describe the shower and say there is a bar of soap.
+void look(): The player is looking around the room. It will say they see a shower.
+void use(boolean playerDirty): Uses the shower only when boolean isDirty is true. If you shower more than twice the prison floods. 
+boolean grabFile(): The player will take the file only if boolean soapConsumed is true. 
+
+
+ */
+public class MojumdarShower {
+
+    //Instance Variables
+    private int showerCount;
+    private boolean hasFile;
+
+    //Constructor
+    public MojumdarShower() {
+        showerCount = 0;
+        hasFile = true;
+    }
+
+    //Parameratized Constructor
+    public MojumdarShower(int s, boolean h) {
+        showerCount = s;
+        hasFile = h;
+    }
+
+    //Display Method
+    public String toString() {
+        String output = "hasFile = " + hasFile + "showerCount = " + showerCount;
+        return output;
+    }
+
+    //Getters
+    public int getShowerCount() {
+        return showerCount;
+    }
+
+    public boolean getHasFile() {
+        return hasFile;
+    }
+
+    //Setters
+    private void setShowerCount(int s) {
+        showerCount = s;
+    }
+
+    private void setHasFile(boolean h) {
+        hasFile = h;
+    }
+
+    //Interesting Methods
+    public void look() {
+        System.out.println("There is a shower");
+    }
+
+    public void examine() {
+        String output;
+        if (showerCount == 1) {
+            output = "There's a bar of soap and there is water leaking";
+        } else if (showerCount == 2) {
+            output = "There is a lot of water leaking. There is something that looks like a metal file inside the soap";
+        } else {
+            output = "The shower has a bar of soap";
+        }
+        System.out.println(output);
+    }
+
+    //use the shower to clean yourself
+    public void use(boolean playerIsDirty) {
+        String output;
+        if (playerIsDirty && showerCount == 1) {
+            output = "You washed yourself and after using the soap to shower you see the soap is revealing something sharp";
+            showerCount++;
+        } else if (playerIsDirty && showerCount == 2) {
+            output = "You showered, You are no longer dirty";
+            showerCount++;
+        } else if (!playerIsDirty) {
+            output = "You are not dirty";
+        } else {
+            output = "You washed yourself";
+            showerCount++;
+        }
+        System.out.println(output);
+    }
+
+    // Grabbing file from the soap
+    public boolean grabFile() {
+        if (showerCount == 1) {
+            System.out.println("What file?");
+            return false;
+        } else if (showerCount == 2) {
+            System.out.println("You grabbed the file!");
+            hasFile = true;
+            return true;
+        } else {
+            System.out.println("What file?");
+            return false;
+        }
+    }
+}
